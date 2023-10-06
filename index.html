@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Копилка Widget</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 200px;
+            height: 300px;
+            background-color: lightgray;
+            border-radius: 15px;
+        }
+
+        .button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: green;
+            color: white;
+            border-radius: 50%;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        .amount {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="button" onclick="addAmount()">+</div>
+        <div class="amount" id="amount">0 руб.</div>
+    </div>
+
+    <script>
+        let totalAmount = 0;
+
+        function addAmount() {
+            const newAmount = parseFloat(prompt('Введите сумму в рублях:'));
+            if (!isNaN(newAmount)) {
+                totalAmount += newAmount;
+                document.getElementById('amount').textContent = totalAmount + ' руб.';
+            }
+        }
+    </script>
+</body>
+</html>
