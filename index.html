@@ -1,71 +1,91 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Копилка Виджет</title>
+    <title>Виджет Копилка</title>
     <style>
-        .widget {
-            width: 200px;
-            height: 150px;
+        body {
+            background-color: #222222;
+        }
+        
+        .widget-container {
+            background-color: #1c1c1c;
+            padding: 20px;
             border-radius: 10px;
-            background-color: #c0c0c0;
-            padding: 10px;
             text-align: center;
         }
-
-        .input-field {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 10px;
+        
+        .savings-container {
+            margin-top: 20px;
         }
-
-        .amount {
-            font-size: 24px;
-            margin-right: 10px;
+        
+        img {
+            width: 200px;
+            margin-bottom: 20px;
+            border-radius: 10px;
         }
-
-        .add-button {
-            width: 30px;
+        
+        input {
+            width: 150px;
             height: 30px;
-            border-radius: 15px;
-            background-color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            border-radius: 5px;
+        }
+        
+        .add-button {
+            margin-left: 10px;
+            background-color: #50b150;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
             cursor: pointer;
         }
-
-        .total {
+        
+        .savings-text {
             font-size: 18px;
+            color: black;
+        }
+        
+        .savings-amount {
+            margin-top: 10px;
+            font-size: 24px;
+            color: black;
+            background-color: #c2f2c2;
+            padding: 10px;
+            border-radius: 5px;
         }
     </style>
 </head>
+
 <body>
-    <div class="widget">
-        <div class="input-field">
-            <input type="number" id="amount" min="0" max="10000" step="1" />
-            <div class="add-button" onclick="addToSavings()"><span>+</span></div>
+    <div class="widget-container">
+        <img src="your-image-url.jpg" alt="Картинка">
+
+        <div>
+            <input type="number" min="0" step="any" id="amountInput">
+            <button id="addButton" class="add-button">+</button>
         </div>
-        <div class="total" id="total">Накопленная сумма: 0 руб.</div>
+
+        <div class="savings-container">
+            <p class="savings-text">Накопленная сумма:</p>
+            <p id="savingsAmount" class="savings-amount">0 рублей</p>
+        </div>
     </div>
 
     <script>
-        let savings = 0;
+        const amountInput = document.getElementById("amountInput");
+        const addButton = document.getElementById("addButton");
+        const savingsAmount = document.getElementById("savingsAmount");
 
-        function addToSavings() {
-            const amountInput = document.getElementById('amount');
-            const amount = parseInt(amountInput.value);
-            if (!isNaN(amount)) {
-                savings += amount;
-                amountInput.value = '';
-                updateTotal();
-            }
-        }
+        let totalSavings = 0;
 
-        function updateTotal() {
-            const totalElement = document.getElementById('total');
-            totalElement.textContent = `Накопленная сумма: ${savings} руб.`;
-        }
+        addButton.addEventListener("click", function() {
+            const amount = Number(amountInput.value);
+            totalSavings += amount;
+            savingsAmount.textContent = totalSavings + " рублей";
+            amountInput.value = "";
+        });
     </script>
 </body>
+
 </html>
