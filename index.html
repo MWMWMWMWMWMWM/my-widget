@@ -56,7 +56,7 @@
     }
   </style>
   <script>
-    let totalAmount = localStorage.getItem("totalAmount") ? parseFloat(localStorage.getItem("totalAmount")) : 0;
+    let totalAmount = parseFloat(localStorage.getItem('totalAmount')) || 0;
 
     function addAmount() {
       const input = document.getElementById("amount-input");
@@ -65,7 +65,7 @@
         totalAmount += amount;
         input.value = "";
         displayAmount();
-        localStorage.setItem("totalAmount", totalAmount.toString());
+        saveAmount();
       }
     }
 
@@ -74,15 +74,19 @@
       display.textContent = `${totalAmount.toFixed(0)}`;
     }
 
-    document.addEventListener("DOMContentLoaded", function(event) {
+    function saveAmount() {
+      localStorage.setItem('totalAmount', totalAmount);
+    }
+
+    window.onload = function() {
       displayAmount();
-    });
+    }
   </script>
 </head>
 <body>
   <div class="widget-container">
-    <img id="piggy-image" src="https://img.freepik.com/free-vector/piggy-bank-concept-illustration_114360-5612.jpg?w=1380&t=st=1" alt="Piggy Bank">
-    <input id="amount-input" type="number" placeholder="Введите сумму">
+    <img id="piggy-image" src="https://img.freepik.com/free-vector/piggy-bank-concept-icon_1284-15501.jpg?size=338&ext=jpg" alt="Piggy Bank">
+    <input type="number" id="amount-input">
     <button id="add-button" onclick="addAmount()">+</button>
     <div id="amount-display"></div>
   </div>
