@@ -8,7 +8,7 @@
     }
 
     .widget-container {
-      width: 400px;
+      width: 250px;
       padding: 10px;
       background-color: #1A1A1A;
       border-radius: 20px;
@@ -24,9 +24,9 @@
     #amount-input {
       width: 40%;
       height: 25px;
-      border-radius: 1px;
+      border-radius: 10px;
       margin-bottom: 20px;
-      margin-left: 100px;
+      margin-left: 60px;
       padding: 5px;
     }
 
@@ -52,23 +52,11 @@
       justify-content: center;
       align-items: center;
       border-radius: 10px;
-      margin-left: 75px;
+      margin-left: 55px;
     }
   </style>
   <script>
-    let totalAmount;
-
-    function loadAmount() {
-      totalAmount = localStorage.getItem("totalAmount");
-      if (!totalAmount) {
-        totalAmount = 0;
-      }
-      displayAmount();
-    }
-
-    function saveAmount() {
-      localStorage.setItem("totalAmount", totalAmount);
-    }
+    let totalAmount = localStorage.getItem("totalAmount") ? parseFloat(localStorage.getItem("totalAmount")) : 0;
 
     function addAmount() {
       const input = document.getElementById("amount-input");
@@ -77,7 +65,7 @@
         totalAmount += amount;
         input.value = "";
         displayAmount();
-        saveAmount();
+        localStorage.setItem("totalAmount", totalAmount.toString());
       }
     }
 
@@ -86,19 +74,17 @@
       display.textContent = `${totalAmount.toFixed(0)}`;
     }
 
-    window.addEventListener("DOMContentLoaded", loadAmount);
-    window.addEventListener("beforeunload", saveAmount);
+    document.addEventListener("DOMContentLoaded", function(event) {
+      displayAmount();
+    });
   </script>
 </head>
 <body>
   <div class="widget-container">
-    <img id="piggy-image" src="https://img.freepik.com/free-vector/piggy-bank-concept-illustration_114360-5612.jpg?w=1380&t=st=1696635" alt="piggy bank">
-    <input type="number" id="amount-input" placeholder="Введите сумму">
-    <button id="add-button" onclick="addAmount()">Добавить</button>
+    <img id="piggy-image" src="https://img.freepik.com/free-vector/piggy-bank-concept-illustration_114360-5612.jpg?w=1380&t=st=1" alt="Piggy Bank">
+    <input id="amount-input" type="number" placeholder="Введите сумму">
+    <button id="add-button" onclick="addAmount()">+</button>
     <div id="amount-display"></div>
   </div>
 </body>
 </html>
-
-
-
