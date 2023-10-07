@@ -1,103 +1,87 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Копилка</title>
-    <style>
-        body {
-            background-color: #303030;
-            color: #fff;
-            font-family: Arial, sans-serif;
-        }
+  <title>Копилка виджет</title>
+  <style>
+    body {
+      background-color: #1A1A1A;
+    }
 
-        .widget-container {
-            width: 300px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #444;
-            border-radius: 10px;
-        }
+    .widget-container {
+      width: 400px;
+      padding: 10px;
+      background-color: #1A1A1A;
+      border-radius: 20px;
+    }
 
-        img {
-            width: 100px;
-            height: 100px;
-            margin-bottom: 10px;
-        }
+    #piggy-image {
+      width: 103%;
+      height: auto;
+      margin-bottom: 10px;
+      border-radius: 70px;
+    }
 
-        .input-container {
-            display: flex;
-        }
+    #amount-input {
+      width: 40%;
+      height: 25px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      margin-left: 100px;
+      padding: 5px;
+    }
 
-        .input-amount {
-            flex: 1;
-            padding: 5px;
-            border-radius: 5px;
-            font-size: 16px;
-        }
+    #add-button {
+      width: 40px;
+      height: 40px;
+      background-color: #78cfa0;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 10px;
+    }
 
-        .add-button {
-            padding: 5px 10px;
-            background-color: #8db600;
-            border: none;
-            border-radius: 5px;
-            color: #fff;
-            font-size: 16px;
-        }
+    #amount-display {
+      width: 67%;
+      height: 50px;
+      background-color: #1A1A1A;
+      color: white;
+      font-weight: bold;
+      font-size: 75px;
+      font-family: monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      margin-left: 75px;
+    }
+  </style>
+  <script>
+    let totalAmount = 0;
 
-        .total-amount {
-            margin-top: 10px;
-            font-size: 18px;
-            font-weight: bold;
-        }
-    </style>
+    function addAmount() {
+      const input = document.getElementById("amount-input");
+      const amount = parseFloat(input.value);
+      if (!isNaN(amount)) {
+        totalAmount += amount;
+        input.value = "";
+        displayAmount();
+      }
+    }
+
+    function displayAmount() {
+      const display = document.getElementById("amount-display");
+      display.textContent = `${totalAmount.toFixed(0)}`;
+    }
+  </script>
 </head>
 <body>
-    <div class="widget-container">
-        <img id="image" src="" alt="Картинка" />
-        <input type="file" id="image-upload" accept=".jpg, .jpeg, .png" />
-      
-        <div class="input-container">
-            <input type="number" id="input-amount" class="input-amount" placeholder="Сумма в рублях" />
-            <button id="add-button" class="add-button">
-                <img src="plus.png" alt="+" />
-            </button>
-        </div>
-      
-        <div id="total-amount" class="total-amount">
-            Накопленная сумма: 0 руб.
-        </div>
-    </div>
-      
-    <script>
-        const image = document.getElementById('image');
-        const imageUpload = document.getElementById('image-upload');
-        const inputAmount = document.getElementById('input-amount');
-        const addButton = document.getElementById('add-button');
-        const totalAmount = document.getElementById('total-amount');
-        let accumulatedAmount = 0;
-
-        imageUpload.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            const reader = new FileReader();
-
-            reader.onload = function() {
-                image.src = reader.result;
-            }
-
-            reader.readAsDataURL(file);
-        });
-
-        addButton.addEventListener('click', function() {
-            const amount = parseInt(inputAmount.value);
-
-            if (isNaN(amount)) {
-                return;
-            }
-
-            accumulatedAmount += amount;
-            inputAmount.value = '';
-            totalAmount.textContent = `Накопленная сумма: ${accumulatedAmount} руб.`;
-        });
-    </script>
+  <div class="widget-container">
+    <img id="piggy-image" src="https://img.freepik.com/free-vector/piggy-bank-concept-illustration_114360-5612.jpg?w=1380&t=st=1696635384~exp=1696635984~hmac=9341d65e17ba77b8d607da20a83acfa1944d183909f1332b4b9849c46d285337" alt="Piggy Bank Image">
+    <input type="number" id="amount-input" placeholder="Введите сумму в рублях">
+    <button id="add-button" onclick="addAmount()">+</button>
+    <div id="amount-display"></div>
+  </div>
 </body>
 </html>
+
 
