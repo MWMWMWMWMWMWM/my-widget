@@ -1,92 +1,88 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>Виджет Копилка</title>
-    <style>
-        body {
-            background-color: #222222;
-        }
-        
-        .widget-container {
-            background-color: #1c1c1c;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-        
-        .savings-container {
-            margin-top: 20px;
-        }
-        
-        img {
-            width: 200px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-        }
-        
-        input {
-            width: 150px;
-            height: 30px;
-            border-radius: 5px;
-        }
-        
-        .add-button {
-            margin-left: 10px;
-            background-color: #50b150;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-        
-        .savings-text {
-            font-size: 18px;
-            color: black;
-        }
-        
-        .savings-amount {
-            margin-top: 10px;
-            font-size: 24px;
-            color: black;
-            background-color: #c2f2c2;
-            padding: 10px;
-            border-radius: 5px;
-        }
-    </style>
+  <title>Копилка виджет</title>
+  <style>
+    body {
+      background-color: #1A1A1A;
+    }
+
+    .widget-container {
+      width: 400px;
+      padding: 10px;
+      background-color: #1A1A1A;
+      border-radius: 20px;
+    }
+
+    #piggy-image {
+      width: 103%;
+      height: auto;
+      margin-bottom: 10px;
+      border-radius: 70px;
+    }
+
+    #amount-input {
+      width: 40%;
+      height: 25px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      margin-left: 100px;
+      padding: 5px;
+    }
+
+    #add-button {
+      width: 40px;
+      height: 40px;
+      background-color: #78cfa0;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 10px;
+    }
+
+    #amount-display {
+      width: 67%;
+      height: 50px;
+      background-color: #1A1A1A;
+      color: white;
+      font-weight: bold;
+      font-size: 75px;
+      font-family: monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      margin-left: 75px;
+    }
+  </style>
+  <script>
+    let totalAmount = 0;
+
+    function addAmount() {
+      const input = document.getElementById("amount-input");
+      const amount = parseFloat(input.value);
+      if (!isNaN(amount)) {
+        totalAmount += amount;
+        input.value = "";
+        displayAmount();
+      }
+    }
+
+    function displayAmount() {
+      const display = document.getElementById("amount-display");
+      display.textContent = `${totalAmount.toFixed(0)}`;
+    }
+  </script>
 </head>
-
 <body>
-    <div class="widget-container">
-        <img src="your-image-url.jpg" alt="Картинка">
-
-        <div>
-            <input type="number" min="0" step="any" id="amountInput">
-            <button id="addButton" class="add-button">+</button>
-        </div>
-
-        <div class="savings-container">
-            <p class="savings-text">Накопленная сумма:</p>
-            <p id="savingsAmount" class="savings-amount">0 рублей</p>
-        </div>
-    </div>
-
-    <script>
-        const amountInput = document.getElementById("amountInput");
-        const addButton = document.getElementById("addButton");
-        const savingsAmount = document.getElementById("savingsAmount");
-
-        let totalSavings = 0;
-
-        addButton.addEventListener("click", function() {
-            const amount = Number(amountInput.value);
-            totalSavings += amount;
-            savingsAmount.textContent = totalSavings + " рублей";
-            amountInput.value = "";
-        });
-    </script>
+  <div class="widget-container">
+    <img id="piggy-image" src="https://img.freepik.com/free-vector/piggy-bank-concept-illustration_114360-5612.jpg?w=1380&t=st=1696635384~exp=1696635984~hmac=9341d65e17ba77b8d607da20a83acfa1944d183909f1332b4b9849c46d285337" alt="Piggy Bank Image">
+    <input type="number" id="amount-input" placeholder="Введите сумму в рублях">
+    <button id="add-button" onclick="addAmount()">+</button>
+    <div id="amount-display"></div>
+  </div>
 </body>
-
 </html>
+
+
 
